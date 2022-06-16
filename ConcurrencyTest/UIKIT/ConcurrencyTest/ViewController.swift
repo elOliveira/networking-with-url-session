@@ -19,7 +19,9 @@ class ViewController: UIViewController {
         let isPrimeNumber = self.isPrime(number: number)
         print("\(number) is prime: \(isPrimeNumber)")
       }
-      self.enablePrimeButton(true)
+        DispatchQueue.main.async { // add na main para alterar a ui
+            self.enablePrimeButton(true)
+        }
     }
   }
   
