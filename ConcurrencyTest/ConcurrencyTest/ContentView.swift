@@ -10,24 +10,27 @@
 import SwiftUI
 
 struct ContentView: View {
-        
+    @State private var calculationDisabled = false
     var body: some View {
         VStack{
             Spacer()
             DatePicker(selection: .constant(Date()), label: { Text("Date")})
                 .labelsHidden()
             Button(action: calculatePrime, label: { Text("Calculate Primes")})
+                .disabled(calculationDisabled)
             Spacer()
         }
     }
     
     func calculatePrime(){
-        
+        calculationDisabled = true
         DispatchQueue.global(qos: .userInitiated).async {
             for number in 0...1_000_000 {
                 let isPrimeNumber = isPrime(number: number)
                 print("\(number) is prime: \(isPrimeNumber)")
             }
+            
+            self.calculationDisabled = false
         }
         
         
