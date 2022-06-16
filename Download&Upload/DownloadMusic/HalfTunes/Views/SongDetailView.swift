@@ -24,9 +24,9 @@ struct SongDetailView: View {
             Text(self.download.downloadLocation == nil ? "Baixar" : "Escutar")
           }.sheet(isPresented: self.$playMusic) {
               AudioPlayer(songUrl: self.download.downloadLocation!)
-          }.onAppear(perform: displayAlbumArt)
-        }.onAppear(perform: displayAlbumArt)
-      }.onAppear(perform: displayAlbumArt)
+          }
+        }
+      }
     }.onAppear(perform: displayAlbumArt)
   }
     
