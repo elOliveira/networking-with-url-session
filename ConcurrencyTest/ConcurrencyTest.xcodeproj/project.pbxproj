@@ -11,6 +11,7 @@
 		4F8243E2285AA241002BE7EA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8243E1285AA241002BE7EA /* ContentView.swift */; };
 		4F8243E4285AA243002BE7EA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8243E3285AA243002BE7EA /* Assets.xcassets */; };
 		4F8243E7285AA243002BE7EA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4F8243E6285AA243002BE7EA /* Preview Assets.xcassets */; };
+		4F8243EE285ABBDA002BE7EA /* CalculatePrimeOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8243ED285ABBDA002BE7EA /* CalculatePrimeOperation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		4F8243E1285AA241002BE7EA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		4F8243E3285AA243002BE7EA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4F8243E6285AA243002BE7EA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4F8243ED285ABBDA002BE7EA /* CalculatePrimeOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatePrimeOperation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				4F8243DF285AA241002BE7EA /* ConcurrencyTestApp.swift */,
 				4F8243E1285AA241002BE7EA /* ContentView.swift */,
+				4F8243ED285ABBDA002BE7EA /* CalculatePrimeOperation.swift */,
 				4F8243E3285AA243002BE7EA /* Assets.xcassets */,
 				4F8243E5285AA243002BE7EA /* Preview Content */,
 			);
@@ -138,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F8243E2285AA241002BE7EA /* ContentView.swift in Sources */,
+				4F8243EE285ABBDA002BE7EA /* CalculatePrimeOperation.swift in Sources */,
 				4F8243E0285AA241002BE7EA /* ConcurrencyTestApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
