@@ -20,14 +20,18 @@ struct SongDetailView: View {
             .shadow(radius: 10)
           Text("\(self.musicItem.trackName) - \(self.musicItem.artistName)")
           Text(self.musicItem.collectionName)
+            if ( self.download.isDownloading){
+                Text("\(Int(self.download.downloadedAmount * 100)) % downloaded")
+                    .padding(.top)
+            }
             Button(action: self.botaoDownloadClick){
             Text(self.download.downloadLocation == nil ? "Baixar" : "Escutar")
           }.sheet(isPresented: self.$playMusic) {
               AudioPlayer(songUrl: self.download.downloadLocation!)
           }
-        }
+        }.onAppear(perform: displayAlbumArt)
       }
-    }.onAppear(perform: displayAlbumArt)
+    }
   }
     
     func displayAlbumArt(){

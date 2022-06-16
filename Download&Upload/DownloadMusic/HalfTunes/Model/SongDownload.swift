@@ -6,6 +6,8 @@ class SongDownload : NSObject, ObservableObject {
     var downloadUrl: URL?
     
     @Published var downloadLocation: URL?
+    @Published var downloadedAmount: Float = 0
+    @Published var isDownloading: Bool = false
     
     lazy var urlSession : URLSession = {
         let configuration = URLSessionConfiguration.default
@@ -16,16 +18,29 @@ class SongDownload : NSObject, ObservableObject {
         downloadUrl = item
         downloadTask = urlSession.downloadTask(with: item)
         downloadTask?.resume()
+        isDownloading = true
     }
 }
 
 extension SongDownload: URLSessionDownloadDelegate {
     
+    func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didWriteData bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+        DispatchQueue.main.async {
+            self.downloadedAmount = Float(totalBytesWritten)/Float(totalBytesExpectedToWrite)
+            print(self.downloadedAmount)
+        }
+    }
+
+
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         
         if let error = error{
             print(error.localizedDescription)
         }
+        DispatchQueue.main.async {
+            self.isDownloading = false
+        }
+        print("Finished")
     }
     
     func urlSession(_ session: URLSession, downloadTask: URLSessionDownloadTask, didFinishDownloadingTo location: URL) {
