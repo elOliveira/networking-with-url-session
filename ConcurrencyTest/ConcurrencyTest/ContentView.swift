@@ -10,9 +10,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    let firstOperation = CalculatePrimeOperation()
-    
+        
     var body: some View {
         VStack{
             Spacer()
@@ -26,32 +24,31 @@ struct ContentView: View {
     func calculatePrime(){
         
         let queue = OperationQueue()
-        queue.addOperation(firstOperation)
+        queue.addOperation{
+            for number in 0...1_000_000 {
+                let isPrimeNumber = isPrime(number: number)
+                print("\(number) is prime: \(isPrimeNumber)")
+            }
+        }
         
-    //    for number in 0...1_000_000 {
-    //        let isPrimeNumber = isPrime(number: number)
-    //        print("\(number) is prime: \(isPrimeNumber)")
-    //    }
+        func isPrime(number: Int)-> Bool{
+            if number <= 1 {
+                return false
+            }
+            if number <= 3 {
+                return false
+            }
+            var i = 2
+        
+            while i * i <= number {
+                if number % i == 0{
+                    return false
+                }
+                i = i + 2
+            }
+            return true
+        }
     }
-
-    //func isPrime(number: Int)-> Bool{
-    //    if number <= 1 {
-    //        return false
-    //    }
-    //    if number <= 3 {
-    //        return false
-    //    }
-    //    var i = 2
-    //
-    //    while i * i <= number {
-    //        if number % i == 0{
-    //            return false
-    //        }
-    //        i = i + 2
-    //    }
-    //    return true
-    //}
-    
 }
 
 
