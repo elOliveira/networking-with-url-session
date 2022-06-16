@@ -23,13 +23,21 @@ struct ContentView: View {
     
     func calculatePrime(){
         
-        let queue = OperationQueue()
-        queue.addOperation{
+        DispatchQueue.global(qos: .userInitiated).async {
             for number in 0...1_000_000 {
                 let isPrimeNumber = isPrime(number: number)
                 print("\(number) is prime: \(isPrimeNumber)")
             }
         }
+        
+        
+//        let queue = OperationQueue()
+//        queue.addOperation{
+//            for number in 0...1_000_000 {
+//                let isPrimeNumber = isPrime(number: number)
+//                print("\(number) is prime: \(isPrimeNumber)")
+//            }
+//        }
         
         func isPrime(number: Int)-> Bool{
             if number <= 1 {
