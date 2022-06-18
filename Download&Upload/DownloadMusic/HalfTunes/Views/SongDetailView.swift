@@ -20,7 +20,7 @@ struct SongDetailView: View {
             .shadow(radius: 10)
           Text("\(self.musicItem.trackName) - \(self.musicItem.artistName)")
           Text(self.musicItem.collectionName)
-            if ( self.download.isDownloading){
+            if ( self.download.state ==  .downloading || self.download.state ==  .paused){
                 Text("\(Int(self.download.downloadedAmount * 100)) % downloaded")
                     .padding(.top)
             }
@@ -51,12 +51,22 @@ struct SongDetailView: View {
     }
     
     func botaoDownloadClick(){
-        if self.download.downloadLocation == nil{
+        switch self.download.state{
+        case .waiting:
             guard let previewUrl = self.musicItem.previewUrl else { return }
             self.download.fetchSongAtUrl(previewUrl)
-        } else {
+            break
+        case .finished:
             self.playMusic = true
+            break
+        case .paused:
+            self.download.resume()
+            break
+        case .downloading:
+            self.download.pause()
+            break
         }
+        
     }
 }
 
