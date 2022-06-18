@@ -24,11 +24,28 @@ struct SongDetailView: View {
                 Text("\(Int(self.download.downloadedAmount * 100)) % downloaded")
                     .padding(.top)
             }
-            Button(action: self.botaoDownloadClick){
-            Text(self.download.downloadLocation == nil ? "Baixar" : "Escutar")
-          }.sheet(isPresented: self.$playMusic) {
-              AudioPlayer(songUrl: self.download.downloadLocation!)
-          }
+            HStack {
+                Button<Text>(action: self.botaoDownloadClick){
+                    switch self.download.state{
+                    case .waiting:
+                        return Text("Baixar")
+                    case .finished:
+                        return Text("Escutar")
+                    case .paused:
+                        return Text("Continuar")
+                    case .downloading:
+                        return Text("Pausar")
+                    }
+                }
+                
+                if (self.download.state == .paused || self.download.state == .downloading){
+                    Button(action: self.download.cancel) {
+                        Text("Cancelar")
+                    }
+                }
+            }.sheet(isPresented: self.$playMusic) {
+                AudioPlayer(songUrl: self.download.downloadLocation!)
+              }
         }.onAppear(perform: displayAlbumArt)
       }
     }
@@ -66,10 +83,8 @@ struct SongDetailView: View {
             self.download.pause()
             break
         }
-        
     }
 }
-
 
 struct SongDetailView_Previews: PreviewProvider {
   struct PreviewWrapper: View {
