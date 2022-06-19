@@ -8,7 +8,7 @@ class SongDownload : NSObject, ObservableObject {
     var resumeData:  Data?
     var urlSession: URLSession?
     var completionHandler: ( () -> Void)?
-
+    
     @Published var downloadLocation: URL?
     @Published var downloadedAmount: Float = 0
     @Published var state: DownloadState = .waiting
@@ -19,7 +19,7 @@ class SongDownload : NSObject, ObservableObject {
         case paused
         case finished
     }
-
+    
     override init() {
         super.init()
         
@@ -58,7 +58,7 @@ class SongDownload : NSObject, ObservableObject {
                 self.state = .downloading
             }
         })
-
+        
     }
 }
 
@@ -77,13 +77,13 @@ extension SongDownload: URLSessionDownloadDelegate {
             print(self.downloadedAmount)
         }
     }
-
-
+    
+    
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
         if let error = error{
             print(error.localizedDescription)
         }
-
+        
         print("Finished")
     }
     
@@ -95,22 +95,21 @@ extension SongDownload: URLSessionDownloadDelegate {
         
         let lastPathComponent = downloadUrl?.lastPathComponent ?? "song.m4a"
         
-            let destinationUrl = documentsPath.appendingPathComponent(lastPathComponent)
+        let destinationUrl = documentsPath.appendingPathComponent(lastPathComponent)
         
-            do {
-                if fileManager.fileExists(atPath: destinationUrl.path){
-                    try fileManager.removeItem(at: destinationUrl)
-                }
-                
-                try fileManager.copyItem(at: location, to: destinationUrl)
-                DispatchQueue.main.async {
-                    self.downloadLocation = destinationUrl
-                    self.state = .finished
-                }
-                
-            } catch {
-                print(error)
+        do {
+            if fileManager.fileExists(atPath: destinationUrl.path){
+                try fileManager.removeItem(at: destinationUrl)
             }
+            
+            try fileManager.copyItem(at: location, to: destinationUrl)
+            DispatchQueue.main.async {
+                self.downloadLocation = destinationUrl
+                self.state = .finished
+            }
+            
+        } catch {
+            print(error)
+        }
     }
 }
- 
